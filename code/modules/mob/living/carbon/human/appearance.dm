@@ -145,7 +145,7 @@
 		if(check_whitelist) //If we're using the whitelist, make sure to check it!
 			if((current_species.spawn_flags & SPECIES_IS_RESTRICTED) && !check_rights(R_ADMIN, 0, src))
 				continue
-			if(!is_alien_whitelisted(src, current_species))
+			if(!check_species_whitelist(src.client, current_species.name))
 				continue
 		if(whitelist.len && !(current_species_name in whitelist))
 			continue

@@ -4,7 +4,7 @@ var/list/whitelist = list()
 
 /hook/startup/proc/loadWhitelist()
 	if(config.usewhitelist)
-		load_whitelist()
+		load_jobwhitelistSQL()
 	return 1
 
 /proc/load_whitelist()
@@ -14,6 +14,8 @@ var/list/whitelist = list()
 /proc/check_whitelist(mob/M /*, var/rank*/)
 	if(!whitelist)
 		return 0
+	if(check_rights(R_MOD, 0, M))
+		return 1
 	return ("[M.ckey]" in whitelist)
 
 /var/list/alien_whitelist = list()
@@ -34,6 +36,62 @@ var/list/whitelist = list()
 	else
 		alien_whitelist = splittext(text, "\n")
 		return 1
+
+/client/verb/CheckWhitelist()
+	set name = "Check Aliums"
+	var/alium = input("Insert alium.", "Aliums")
+
+	world << "Species is [check_species_whitelist(src, alium)]"
+
+/proc/check_species_whitelist(client/C, var/species = "")
+	var/DBQuery/query = dbcon_old.NewQuery("SELECT * FROM whitelist WHERE ckey = '[C.ckey]'/* AND race = '[species]'*/")
+	if(!query.Execute())
+		world.log << dbcon_old.ErrorMsg()
+		return 0
+	else
+		while(query.NextRow())
+			var/list/row = query.GetRowData()
+			if(row["ckey"] == C.ckey && findtext(row["race"], species))
+				alien_whitelist.Add("[C.ckey] - [species]")
+				return 1
+			else
+				return 0
+
+
+/*	else
+		while(query.NextRow())
+			var/list/row = query.GetRowData()
+			if(row["ckey"] == C.ckey && row["race"] == species)
+				return 1
+
+			if(alien_whitelist[row["ckey"]])
+				var/list/A = alien_whitelist[row["ckey"]]
+				A.Add(row["race"])
+			else
+				alien_whitelist[row["ckey"]] = list(row["race"])*/
+//	return 1
+/*
+/proc/load_alienwhitelistSQL()
+	var/DBQuery/query = dbcon_old.NewQuery("SELECT * FROM whitelist")
+	if(!query.Execute())
+		world.log << dbcon_old.ErrorMsg()
+		return 0
+	else
+//		var/list/A
+		while(query.NextRow())
+			var/list/row = query.GetRowData()
+			if(row["ckey"])
+				if(findtext(row["race"], "tajaran"))
+					alien_whitelist.Add("[C.ckey] - [species]")
+				if(findtext(row["race"], "soghun"))
+					alien_whitelist.Add("[C.ckey] - [species]")
+				if(findtext(row["race"], "unathi"))
+					alien_whitelist.Add("[C.ckey] - [species]")
+				if(findtext(row["race"], "skrell"))
+					alien_whitelist.Add("[C.ckey] - [species]")
+		world.log << "Whitelist is now [alien_whitelist.len] Big."
+	return 1
+*/
 /proc/load_alienwhitelistSQL()
 	var/DBQuery/query = dbcon_old.NewQuery("SELECT * FROM whitelist")
 	if(!query.Execute())
@@ -47,6 +105,17 @@ var/list/whitelist = list()
 				A.Add(row["race"])
 			else
 				alien_whitelist[row["ckey"]] = list(row["race"])
+	return 1
+
+/proc/load_jobwhitelistSQL()
+	var/DBQuery/query = dbcon_old.NewQuery("SELECT * FROM whitelist WHERE jobwhitelist = 1")
+	if(!query.Execute())
+		world.log << dbcon_old.ErrorMsg()
+		return 0
+	else
+		while(query.NextRow())
+			var/list/row = query.GetRowData()
+			whitelist.Add(row["ckey"])
 	return 1
 
 /proc/is_species_whitelisted(mob/M, var/species_name)
@@ -72,7 +141,7 @@ var/list/whitelist = list()
 		var/datum/species/S = species
 		if(!(S.spawn_flags & (SPECIES_IS_WHITELISTED|SPECIES_IS_RESTRICTED)))
 			return 1
-		return whitelist_lookup(S.get_bodytype(S), M.ckey)
+		return whitelist_lookup(S.name, M.ckey)
 
 	return 0
 
@@ -85,7 +154,7 @@ var/list/whitelist = list()
 		if(!(ckey in alien_whitelist))
 			return 0;
 		var/list/whitelisted = alien_whitelist[ckey]
-		if(lowertext(item) in whitelisted)
+		if(findtext(whitelisted, item) in whitelisted)
 			return 1
 	else
 		//Config File Whitelist

@@ -521,7 +521,7 @@
 		if(show_alert)
 			to_chat(src, alert("Your current species, [client.prefs.species], is not available for play on the station."))
 		return 0
-	if(!is_alien_whitelisted(src, S))
+	if(!check_species_whitelist(src.client, S.name))
 		if(show_alert)
 			to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
 		return 0

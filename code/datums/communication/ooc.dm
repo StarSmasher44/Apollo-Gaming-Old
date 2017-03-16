@@ -36,7 +36,11 @@
 			ooc_style = "admin"
 
 	var/can_badmin = !is_stealthed && can_select_ooc_color(C) && (C.prefs.ooccolor != initial(C.prefs.ooccolor))
-	var/ooc_color = C.prefs.ooccolor
+	var/ooc_color
+	if(C.donator)
+		ooc_color = "#8D2B96"
+	else
+		ooc_color = C.prefs.ooccolor
 
 	for(var/client/target in clients)
 		if(target.is_key_ignored(C.key)) // If we're ignored by this person, then do nothing.

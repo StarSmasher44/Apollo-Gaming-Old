@@ -198,6 +198,7 @@ var/list/admin_verbs_debug = list(
 	/turf/proc/view_chunk,
 	/turf/proc/update_chunk,
 	/datum/admins/proc/capture_map,
+	/client/proc/add_whitelist,
 	/datum/admins/proc/view_runtimes
 	)
 

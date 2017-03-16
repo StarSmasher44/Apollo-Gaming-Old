@@ -17,6 +17,7 @@ em						{font-style: normal;font-weight: bold;}
 /* OOC */
 .ooc					{font-weight: bold;}
 .ooc img.text_tag		{width: 32px; height: 10px;}
+.donator				{color: #8D2B96;}
 
 .ooc .everyone			{color: #002eb8;}
 .ooc .looc				{color: #3A9696;}
