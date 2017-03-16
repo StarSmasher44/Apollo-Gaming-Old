@@ -97,7 +97,7 @@
 	if(!material)
 		return
 	var/list/dirs = list()
-	for(var/turf/simulated/wall/W in orange(src, 1))
+	for(var/turf/simulated/wall/W in otrange(src, 1))
 		if(!W.material)
 			continue
 		if(propagate)

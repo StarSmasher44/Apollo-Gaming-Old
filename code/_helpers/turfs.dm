@@ -96,3 +96,26 @@
 	if(pressure < SOUND_MINIMUM_PRESSURE)
 		return TRUE
 	return FALSE
+
+
+/proc/trange(rad = 0, turf/centre = null) //alternative to range (ONLY processes turfs and thus less intensive)
+	if(!centre)
+		return
+
+	var/turf/x1y1 = locate(((centre.x-rad)<1 ? 1 : centre.x-rad),((centre.y-rad)<1 ? 1 : centre.y-rad),centre.z)
+	var/turf/x2y2 = locate(((centre.x+rad)>world.maxx ? world.maxx : centre.x+rad),((centre.y+rad)>world.maxy ? world.maxy : centre.y+rad),centre.z)
+	return block(x1y1,x2y2)
+
+
+/proc/otrange(var/Dist = 0, var/turf/Center = null)//alternative to orange (ONLY processes turfs and thus less intensive)
+	if (isnull(Center))
+		return
+
+	//var/x1 = ((Center.x-Dist) < 1 ? 1 : Center.x - Dist)
+	//var/y1 = ((Center.y-Dist) < 1 ? 1 : Center.y - Dist)
+	//var/x2 = ((Center.x+Dist) > world.maxx ? world.maxx : Center.x + Dist)
+	//var/y2 = ((Center.y+Dist) > world.maxy ? world.maxy : Center.y + Dist)
+
+	var/turf/x1y1 = locate(((Center.x - Dist) < 1 ? 1 : Center.x - Dist), ((Center.y - Dist) < 1 ? 1 : Center.y - Dist), Center.z)
+	var/turf/x2y2 = locate(((Center.x + Dist) > world.maxx ? world.maxx : Center.x + Dist), ((Center.y + Dist) > world.maxy ? world.maxy : Center.y + Dist), Center.z)
+	return block(x1y1, x2y2)-Center
