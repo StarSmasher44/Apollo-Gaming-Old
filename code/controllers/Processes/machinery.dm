@@ -47,7 +47,6 @@
 		var/obj/item/I = last_object
 		if(!I.pwr_drain()) // 0 = Process Kill, remove from processing list.
 			processing_power_items.Remove(I)
-		SCHECK
 
 /datum/controller/process/machinery/proc/internal_process_pipenets()
 	for(last_object in pipe_networks)

@@ -14,7 +14,7 @@ var/list/datum/list_of_ais = list()
 					list_of_ais -= AI
 			catch(var/exception/e)
 				catchException(e, AI)
-			SCHECK
+			CHECK_TICK
 		else
 			catchBadType(AI)
 			list_of_ais -= AI

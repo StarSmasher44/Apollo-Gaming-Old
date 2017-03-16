@@ -18,10 +18,9 @@ var/global/datum/controller/process/tgui/tgui_process
 		var/datum/tgui/ui = gui
 		if(ui && ui.user && ui.src_object)
 			ui.process()
-			SCHECK
+			CHECK_TICK
 			continue
 		processing_uis.Remove(ui)
-		SCHECK
 
 /datum/controller/process/tgui/statProcess()
 	..()

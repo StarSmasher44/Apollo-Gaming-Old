@@ -49,6 +49,8 @@ var/global/datum/controller/processScheduler/processScheduler
 
 	var/tmp/timeAllowanceMax = 0
 
+	var/tmp/sleep_delta = 0
+
 /datum/controller/processScheduler/New()
 	..()
 	// When the process scheduler is first new'd, tick_lag may be wrong, so these
@@ -103,6 +105,10 @@ var/global/datum/controller/processScheduler/processScheduler
 		// Hopefully spawning this for 50 ticks in the future will make it the first thing in the queue.
 		spawn(world.tick_lag*50) updateCurrentTickData()
 		checkRunningProcesses()
+		if (world.tick_usage > TICK_LIMIT_MC) // ^^ Allow ticker to check on itself first.
+			sleep_delta += 2
+			sleep(world.tick_lag * (sleep_delta+1)) // Then sleep if we're using too much.
+			continue
 		queueProcesses()
 		runQueuedProcesses()
 		sleep(scheduler_sleep_interval)

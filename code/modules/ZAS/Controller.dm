@@ -108,6 +108,7 @@ Class Procs:
 	for(var/turf/simulated/S in world)
 		simulated_turf_count++
 		S.update_air_properties()
+		CHECK_TICK2(90)
 
 	admin_notice({"<span class='danger'>Geometry initialized in [round(0.1*(world.timeofday-start_time),0.1)] seconds.</span>
 <span class='info'>
@@ -176,6 +177,7 @@ Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_coun
 			T.overlays -= mark
 			updated++
 			#endif
+			CHECK_TICK
 			//sleep(1)
 
 		for(var/turf/T in deferred)
@@ -200,6 +202,7 @@ Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_coun
 
 	for(var/connection_edge/edge in active_edges)
 		edge.tick()
+		CHECK_TICK
 
 	//Process fire zones.
 	if(.)
@@ -214,6 +217,7 @@ Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_coun
 
 	for(var/obj/fire/fire in active_hotspots)
 		fire.process()
+		CHECK_TICK
 
 	//Process zones.
 	if(.)
@@ -226,6 +230,7 @@ Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_coun
 		for(var/zone/zone in updating)
 			zone.tick()
 			zone.needs_update = 0
+			CHECK_TICK
 
 	if(.)
 		tick_progress = "success"
