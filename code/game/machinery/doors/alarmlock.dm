@@ -33,9 +33,9 @@
 	var/alarm_area = signal.data["zone"]
 	var/alert = signal.data["alert"]
 
-	var/area/our_area = get_area(src)
+//	var/area/our_area = MyArea
 
-	if(alarm_area == our_area.name)
+	if(alarm_area == MyArea.name)
 		switch(alert)
 			if("severe")
 				autoclose = 1

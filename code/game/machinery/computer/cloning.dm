@@ -41,8 +41,7 @@
 
 	//Then look for a free one in the area
 	if(!scannerf)
-		var/area/A = get_area(src)
-		for(var/obj/machinery/dna_scannernew/S in A.get_contents())
+		for(var/obj/machinery/dna_scannernew/S in MyArea.get_contents())
 			return S
 
 	return
@@ -82,8 +81,7 @@
 
 /obj/machinery/computer/cloning/proc/findcloner()
 	var/num = 1
-	var/area/A = get_area(src)
-	for(var/obj/machinery/clonepod/P in A.get_contents())
+	for(var/obj/machinery/clonepod/P in MyArea.get_contents())
 		if(!P.connected)
 			pods += P
 			P.connected = src

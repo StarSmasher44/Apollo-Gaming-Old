@@ -60,15 +60,15 @@
 	..()
 	spawn(10)
 		number = 1
-		var/area/A = get_area(src)
-		if(A)
+//		var/area/A = get_area(src)
+		if(MyArea)
 			for(var/obj/machinery/camera/autoname/C in world)
 				if(C == src) continue
-				var/area/CA = get_area(C)
-				if(CA.type == A.type)
+//				var/area/CA = get_area(C)
+				if(C.MyArea.type == MyArea.type)
 					if(C.number)
 						number = max(number, C.number+1)
-			c_tag = "[A.name] #[number]"
+			c_tag = "[MyArea.name] #[number]"
 		invalidateCameraCache()
 
 

@@ -1071,8 +1071,8 @@ FIRE ALARM
 /obj/machinery/firealarm/proc/reset()
 	if (!( src.working ))
 		return
-	var/area/area = get_area(src)
-	for(var/obj/machinery/firealarm/FA in area)
+//	var/area/area = get_area(src)
+	for(var/obj/machinery/firealarm/FA in MyArea)
 		fire_alarm.clearAlarm(loc, FA)
 	update_icon()
 	return
@@ -1080,8 +1080,8 @@ FIRE ALARM
 /obj/machinery/firealarm/proc/alarm(var/duration = 0)
 	if (!( src.working))
 		return
-	var/area/area = get_area(src)
-	for(var/obj/machinery/firealarm/FA in area)
+//	var/area/area = get_area(src)
+	for(var/obj/machinery/firealarm/FA in MyArea)
 		fire_alarm.triggerAlarm(loc, FA, duration)
 	update_icon()
 	//playsound(src.loc, 'sound/ambience/signal.ogg', 75, 0)
@@ -1143,13 +1143,13 @@ Just a object used in constructing fire alarms
 		return
 
 	user.machine = src
-	var/area/A = get_area(src)
-	ASSERT(isarea(A))
+//	var/area/A = get_area(src)
+//	ASSERT(isarea(A))
 	var/d1
 	var/d2
 	if (istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon/ai))
 
-		if (A.party)
+		if (MyArea.party)
 			d1 = text("<A href='?src=\ref[];reset=1'>No Party :(</A>", src)
 		else
 			d1 = text("<A href='?src=\ref[];alarm=1'>PARTY!!!</A>", src)
@@ -1163,7 +1163,7 @@ Just a object used in constructing fire alarms
 		user << browse(dat, "window=partyalarm")
 		onclose(user, "partyalarm")
 	else
-		if (A.fire)
+		if (MyArea.fire)
 			d1 = text("<A href='?src=\ref[];reset=1'>[]</A>", src, stars("No Party :("))
 		else
 			d1 = text("<A href='?src=\ref[];alarm=1'>[]</A>", src, stars("PARTY!!!"))
@@ -1181,17 +1181,17 @@ Just a object used in constructing fire alarms
 /obj/machinery/partyalarm/proc/reset()
 	if (!( working ))
 		return
-	var/area/A = get_area(src)
-	ASSERT(isarea(A))
-	A.partyreset()
+//	var/area/A = get_area(src)
+//	ASSERT(isarea(A))
+	MyArea.partyreset()
 	return
 
 /obj/machinery/partyalarm/proc/alarm()
 	if (!( working ))
 		return
-	var/area/A = get_area(src)
-	ASSERT(isarea(A))
-	A.partyalert()
+//	var/area/A = get_area(src)
+//	ASSERT(isarea(A))
+	MyArea.partyalert()
 	return
 
 /obj/machinery/partyalarm/Topic(href, href_list)

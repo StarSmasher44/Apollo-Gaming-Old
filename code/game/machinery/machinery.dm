@@ -89,6 +89,8 @@ Class Procs:
    process()                  'game/machinery/machine.dm'
       Called by the 'master_controller' once per game tick for each machine that is listed in the 'machines' list.
 
+   MyArea (Variable)
+      Saves the Area name for quicker lookups, don't use in any New() or Initialite() procs.
 
 	Compiled by Aygar
 */
@@ -112,6 +114,7 @@ Class Procs:
 	var/panel_open = 0
 	var/global/gl_uid = 1
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
+	var/area/MyArea
 
 /obj/machinery/New(l, d=0)
 	..(l)
@@ -122,6 +125,7 @@ Class Procs:
 	else
 		machines += src
 		machinery_sort_required = 1
+	MyArea = get_area(src)
 
 /obj/machinery/Destroy()
 	machines -= src
@@ -275,13 +279,13 @@ Class Procs:
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
-	if(electrocute_mob(user, get_area(src), src, 0.7))
-		var/area/temp_area = get_area(src)
-		if(temp_area)
-			var/obj/machinery/power/apc/temp_apc = temp_area.get_apc()
+	if(electrocute_mob(user, MyArea, src, 0.7))
+//		var/area/temp_area = get_area(src)
+//		if(temp_area)
+		var/obj/machinery/power/apc/temp_apc = MyArea.get_apc()
 
-			if(temp_apc && temp_apc.terminal && temp_apc.terminal.powernet)
-				temp_apc.terminal.powernet.trigger_warning()
+		if(temp_apc && temp_apc.terminal && temp_apc.terminal.powernet)
+			temp_apc.terminal.powernet.trigger_warning()
 		if(user.stunned)
 			return 1
 	return 0

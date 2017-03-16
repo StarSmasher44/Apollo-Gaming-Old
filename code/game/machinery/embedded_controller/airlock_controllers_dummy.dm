@@ -48,6 +48,5 @@
 
 /obj/machinery/dummy_airlock_controller/powered(var/chan = -1, var/area/check_area = null)
 	if(master_controller)
-		var/area/A = get_area(master_controller)
-		return master_controller.powered(chan, A)
+		return master_controller.MyArea.powered(chan, master_controller.MyArea)
 	return ..()

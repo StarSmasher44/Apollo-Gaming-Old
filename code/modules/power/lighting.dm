@@ -209,11 +209,10 @@ var/global/list/light_type_cache = list()
 	update(0)
 
 /obj/machinery/light/Destroy()
-	var/area/A = get_area(src)
 	if(s)
 		qdel(s)
 		s = null
-	if(A)
+	if(MyArea)
 		on = 0
 //		A.update_lights()
 	..()
@@ -388,7 +387,7 @@ var/global/list/light_type_cache = list()
 				M.show_message("[user.name] smashed the light!", 3, "You hear a tinkle of breaking glass", 2)
 			if(on && (W.flags & CONDUCT))
 				if (prob(12))
-					electrocute_mob(user, get_area(src), src, 0.3)
+					electrocute_mob(user, MyArea, src, 0.3)
 			broken()
 
 		else
@@ -412,14 +411,14 @@ var/global/list/light_type_cache = list()
 			s.start()
 			//if(!user.mutations & COLD_RESISTANCE)
 			if (prob(75))
-				electrocute_mob(user, get_area(src), src, rand(0.7,1.0))
+				electrocute_mob(user, MyArea, src, rand(0.7,1.0))
 
 
 // returns whether this light has power
 // true if area has power and lightswitch is on
 /obj/machinery/light/powered()
-	var/area/A = get_area(src)
-	return A && A.lightswitch && ..(power_channel)
+//	var/area/A = get_area(src)
+	return MyArea.lightswitch && ..(power_channel)
 
 /obj/machinery/light/proc/flicker(var/amount = rand(10, 20))
 	if(flickering) return
@@ -512,7 +511,6 @@ var/global/list/light_type_cache = list()
 		if(status == LIGHT_OK || status == LIGHT_BURNED)
 			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
 		if(on)
-			s.set_up(3, 1, src)
 			s.start()
 	status = LIGHT_BROKEN
 	update()

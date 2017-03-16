@@ -150,7 +150,7 @@ var/list/floor_light_cache = list()
 	return
 
 /obj/machinery/floor_light/Destroy()
-	var/area/A = get_area(src)
-	if(A)
+//	var/area/A = get_area(src)
+	if(MyArea)
 		on = 0
 	..()
