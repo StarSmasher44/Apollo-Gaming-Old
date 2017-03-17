@@ -18,7 +18,6 @@ var/global/datum/controller/process/tgui/tgui_process
 		var/datum/tgui/ui = gui
 		if(ui && ui.user && ui.src_object)
 			ui.process()
-			CHECK_TICK
 			continue
 		processing_uis.Remove(ui)
 

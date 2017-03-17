@@ -11,4 +11,3 @@
 					log_access("AFK: [key_name(C)]")
 					to_chat(C, "<SPAN CLASS='warning'>You have been inactive for more than [config.kick_inactive] minute\s and have been disconnected.</SPAN>")
 					qdel(C)
-			CHECK_TICK

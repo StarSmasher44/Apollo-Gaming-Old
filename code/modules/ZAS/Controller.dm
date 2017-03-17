@@ -177,7 +177,7 @@ Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_coun
 			T.overlays -= mark
 			updated++
 			#endif
-			CHECK_TICK
+			CHECK_TICK2(85)
 			//sleep(1)
 
 		for(var/turf/T in deferred)
@@ -202,7 +202,7 @@ Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_coun
 
 	for(var/connection_edge/edge in active_edges)
 		edge.tick()
-		CHECK_TICK
+		CHECK_TICK2(85)
 
 	//Process fire zones.
 	if(.)
@@ -217,7 +217,7 @@ Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_coun
 
 	for(var/obj/fire/fire in active_hotspots)
 		fire.process()
-		CHECK_TICK
+		CHECK_TICK2(85)
 
 	//Process zones.
 	if(.)
@@ -230,7 +230,7 @@ Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_coun
 		for(var/zone/zone in updating)
 			zone.tick()
 			zone.needs_update = 0
-			CHECK_TICK
+			CHECK_TICK2(85)
 
 	if(.)
 		tick_progress = "success"
