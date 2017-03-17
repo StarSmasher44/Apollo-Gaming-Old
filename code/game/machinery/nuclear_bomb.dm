@@ -405,7 +405,7 @@ var/bomb_set
 /obj/machinery/nuclearbomb/station/initialize()
 	..()
 	verbs -= /obj/machinery/nuclearbomb/verb/toggle_deployable
-	for(var/turf/simulated/floor/T in trange(1, src))
+	for(var/turf/simulated/floor/T in range(1, src))
 		T.set_flooring(get_flooring_data(/decl/flooring/reinforced/circuit/red))
 		flash_tiles += T
 	update_icon()

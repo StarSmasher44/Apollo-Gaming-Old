@@ -1379,7 +1379,7 @@
 
 /datum/chemical_reaction/slime/teleport/on_reaction(var/datum/reagents/holder)
 	var/list/turfs = list()
-	for(var/turf/T in otrange(holder.my_atom,6))
+	for(var/turf/T in orange(holder.my_atom,6))
 		turfs += T
 	for(var/atom/movable/a in viewers(holder.my_atom,2))
 		if(!a.simulated)
