@@ -4,9 +4,5 @@
  */
 //#define HUB_ENABLED 1
 	hub = "Exadv1.spacestation13"
-	name = "Space Station 13 - Baystation 12"
-#ifdef HUB_ENABLED
+	name = "Apollo Gaming"
 	hub_password = "kMZy3U5jJHSiBQjr"
-#else
-	hub_password = "SORRYNOPASSWORD"
-#endif
