@@ -44,6 +44,14 @@ var/list/whitelist = list()
 	world << "Species is [check_species_whitelist(src, alium)]"
 
 /proc/check_species_whitelist(client/C, var/species = "")
+	if(!C || !species)
+		return 0
+	if(!config.usealienwhitelist)
+		return 1
+	if(check_rights(R_ADMIN, 0, C.mob))
+		return 1
+	if(species == "human")
+		return 1
 	var/DBQuery/query = dbcon_old.NewQuery("SELECT * FROM whitelist WHERE ckey = '[C.ckey]'/* AND race = '[species]'*/")
 	if(!query.Execute())
 		world.log << dbcon_old.ErrorMsg()
