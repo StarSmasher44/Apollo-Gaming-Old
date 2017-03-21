@@ -50,39 +50,3 @@ var/list/donators = list()
 	for(var/client/C in clients)
 		if((C.holder && (C.holder.rights & R_ADMIN || C.holder.rights & R_MOD)) || C.donator)
 			C << "<span class='donator'>" + create_text_tag("don", "DON:", C) + " <b>[src]: </b><span class='message'>[msg]</span></span>"
-
-/proc/setWhitelist(var/client/C, var/option, var/species = "") // OPTION; 1 for heads, 2 for aliens, 3 for donators.
-	if(!C || !C.ckey || !option || option == 2 && !species)
-		return 0
-	switch(option)
-		if(1) // Heads
-			var/DBQuery/query = dbcon.NewQuery("SELECT * FROM whitelist WHERE ckey = '[C.ckey]'")
-			query.Execute()
-			if(!query.Execute())
-				world.log << dbcon_old.ErrorMsg()
-				return 0
-			var/DBQuery/query_insert = dbcon.NewQuery("UPDATE whitelist SET jobwhitelist = '[1]' WHERE ckey = '[C.ckey]'")
-			if(query_insert.Execute())
-				return 1
-		if(2) // Aliens
-			var/DBQuery/query = dbcon.NewQuery("SELECT * FROM whitelist WHERE ckey = '[C.ckey]'")
-			query.Execute()
-			if(!query.Execute())
-				world.log << dbcon_old.ErrorMsg()
-				return 0
-			var/aliens = ""
-			while(query.NextRow())
-				var/list/row = query.GetRowData()
-				aliens = "[row["race"]],[species]" //Take the previous and Add them to the list
-			var/DBQuery/query_insert = dbcon.NewQuery("UPDATE whitelist SET race = '[aliens]' WHERE ckey = '[C.ckey]'")
-			if(query_insert.Execute())
-				return 1
-		if(3) // Donators
-			var/DBQuery/query = dbcon.NewQuery("SELECT * FROM whitelist WHERE ckey = '[C.ckey]'")
-			query.Execute()
-			if(!query.Execute())
-				world.log << dbcon_old.ErrorMsg()
-				return 0
-			var/DBQuery/query_insert = dbcon.NewQuery("UPDATE whitelist SET donator = '[1]' WHERE ckey = '[C.ckey]'")
-			if(query_insert.Execute())
-				return 1

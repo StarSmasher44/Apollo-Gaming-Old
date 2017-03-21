@@ -48,7 +48,7 @@ var/list/whitelist = list()
 		return 0
 	if(!config.usealienwhitelist)
 		return 1
-	if(check_rights(R_ADMIN, 0, C.mob))
+	if(check_rights(R_ADMIN))
 		return 1
 	if(species == "human")
 		return 1
