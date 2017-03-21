@@ -306,6 +306,7 @@
 		for(var/i = 1 to 4)
 			I = image(icon, dir = 1<<(i-1), icon_state = connections[i])
 			overlays += I
+			sleep(-1)
 
 		// Standard table image
 		if(material)
@@ -314,6 +315,7 @@
 				if(material.icon_colour) I.color = material.icon_colour
 				I.alpha = 255 * material.opacity
 				overlays += I
+				sleep(-1)
 
 		// Reinforcements
 		if(reinforced)
@@ -322,11 +324,13 @@
 				I.color = reinforced.icon_colour
 				I.alpha = 255 * reinforced.opacity
 				overlays += I
+				sleep(-1)
 
 		if(carpeted)
 			for(var/i = 1 to 4)
 				I = image(icon, "carpet_[connections[i]]", dir = 1<<(i-1))
 				overlays += I
+				sleep(-1)
 	else
 		overlays.Cut()
 		var/type = 0

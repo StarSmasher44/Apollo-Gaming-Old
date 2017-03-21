@@ -36,7 +36,7 @@ datum/controller/game_controller/New()
 datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
 
-	spawn(20)
+	spawn(60)
 		createRandomZlevel()
 
 	setup_objects()
@@ -51,7 +51,7 @@ datum/controller/game_controller/proc/setup()
 #ifdef UNIT_TEST
 #define CHECK_SLEEP_MASTER // For unit tests we don't care about a smooth lobby screen experience. We care about speed.
 #else
-#define CHECK_SLEEP_MASTER if(!(initialization_stage & INITIALIZATION_NOW) && ++initialized_objects > 500) { initialized_objects=0;sleep(world.tick_lag); }
+#define CHECK_SLEEP_MASTER if(!(initialization_stage & INITIALIZATION_NOW) && ++initialized_objects > 250) { initialized_objects=0;CHECK_TICK; }
 #endif
 
 datum/controller/game_controller/proc/setup_objects()
@@ -88,6 +88,9 @@ datum/controller/game_controller/proc/setup_objects()
 	for(var/obj/machinery/atmospherics/machine in machines)
 		machine.build_network()
 		CHECK_SLEEP_MASTER
+
+	report_progress("Caching space parallax simulation")
+	create_global_parallax_icons()
 
 	report_progress("Initializing atmos machinery")
 	for(var/obj/machinery/atmospherics/unary/U in machines)
