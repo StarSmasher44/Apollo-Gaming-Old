@@ -49,7 +49,7 @@ var/list/donators = list()
 	log_admin("DON: [key_name(src)] : [msg]")
 	for(var/client/C in clients)
 		if((C.holder && (C.holder.rights & R_ADMIN || C.holder.rights & R_MOD)) || C.donator)
-			C << "<span class='donatorsay'>" + create_text_tag("don", "DON:", C) + " <b>[src]: </b><span class='message'>[msg]</span></span>"
+			C << "<span class='donator'>" + create_text_tag("don", "DON:", C) + " <b>[src]: </b><span class='message'>[msg]</span></span>"
 
 /proc/setWhitelist(var/client/C, var/option, var/species = "") // OPTION; 1 for heads, 2 for aliens, 3 for donators.
 	if(!C || !C.ckey || !option || option == 2 && !species)

@@ -148,6 +148,8 @@
 		to_chat(src, "<span class='alert'>[custom_event_msg]</span>")
 		to_chat(src, "<br>")
 
+	if(is_donator(src))
+		to_chat(src, "Welcome to the server [key]! Donator status recognized.")
 
 	if(holder)
 		add_admin_verbs()
@@ -155,10 +157,10 @@
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
 	// (but turn them off first, since sometimes BYOND doesn't turn them on properly otherwise)
-	spawn(5) // And wait a half-second, since it sounds like you can do this too fast.
+	spawn(10) // And wait a half-second, since it sounds like you can do this too fast.
 		if(src)
 			winset(src, null, "command=\".configure graphics-hwmode off\"")
-			sleep(2) // wait a bit more, possibly fixes hardware mode not re-activating right
+			sleep(10) // wait a bit more, possibly fixes hardware mode not re-activating right
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 	log_client_to_db()

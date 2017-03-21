@@ -63,8 +63,5 @@
 	reload_fullscreen() // Reload any fullscreen overlays this mob has.
 	add_click_catcher()
 
-	if(is_donator(src))
-		to_chat(src, "Welcome to the server [client.key]! Donator status recognized.")
-
 	//set macro to normal incase it was overriden (like cyborg currently does)
 	winset(src, null, "mainwindow.macro=macro hotkey_toggle.is-checked=false input.focus=true input.background-color=#D3B5B5")
