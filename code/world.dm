@@ -102,6 +102,8 @@
 		runtime_log << "Game [game_id] starting up at [time2text(world.timeofday, "hh:mm.ss")]"
 		log = runtime_log
 
+	sleep(50) // Sleep so the game doesn't take forever to reconnect..
+
 	callHook("startup")
 	//Emergency Fix
 	load_mods()
@@ -143,6 +145,7 @@
 		processScheduler.deferSetupFor(/datum/controller/process/ticker)
 		processScheduler.setup()
 		master_controller.setup()
+		Announce()
 #ifdef UNIT_TEST
 		initialize_unit_tests()
 #endif
