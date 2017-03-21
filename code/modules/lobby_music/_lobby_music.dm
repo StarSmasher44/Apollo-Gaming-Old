@@ -9,7 +9,7 @@
 	var/url // Remember to include http:// or https://
 
 /lobby_music/proc/play_to(var/listener)
-	if(!song)
+	if(!song || !listener)
 		return
 	to_chat(listener, "<span class='good'>Now Playing:</span>")
 	to_chat(listener, "<span class='good'>[title][artist ? " by [artist]" : ""][album ? " ([album])" : ""]</span>")
