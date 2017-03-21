@@ -640,7 +640,7 @@
 		name = "Shaved"
 		icon_state = "bald"
 		gender = NEUTER
-		species_allowed = list("Human","Unathi","Tajara","Skrell","Vox","Machine")
+		species_allowed = list("Human","Unathi","Tajara","Skrell","Vox","Machine","Wryn")
 
 	watson
 		name = "Watson Mustache"
@@ -867,6 +867,13 @@
 		name = "Quill Mohawk"
 		icon_state = "vox_mohawk"
 		species_allowed = list("Vox")
+// Apollo-specific
+	//Wryn antennae
+	wry_antennae_default
+		name = "Antennae"
+		icon_state = "wryn_antennae"
+		species_allowed = list("Wryn")
+
 /datum/sprite_accessory/facial_hair
 
 	taj_sideburns

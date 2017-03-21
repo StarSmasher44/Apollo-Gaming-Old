@@ -40,6 +40,10 @@
 	h_style = "Short Vox Quills"
 	..(new_loc, "Vox")
 
+/mob/living/carbon/human/wryn/New(var/new_loc)
+	h_style = "wryn_antennae"
+	..(new_loc, "Wryn")
+
 /mob/living/carbon/human/diona/New(var/new_loc)
 	..(new_loc, "Diona")
 
