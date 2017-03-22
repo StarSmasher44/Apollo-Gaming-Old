@@ -37,12 +37,6 @@ var/list/whitelist = list()
 		alien_whitelist = splittext(text, "\n")
 		return 1
 
-/client/verb/CheckWhitelist()
-	set name = "Check Aliums"
-	var/alium = input("Insert alium.", "Aliums")
-
-	world << "Species is [check_species_whitelist(src, alium)]"
-
 /proc/check_species_whitelist(client/C, var/species = "")
 	if(!C || !species)
 		return 0
@@ -52,7 +46,7 @@ var/list/whitelist = list()
 		return 1
 	if(species == "human")
 		return 1
-	var/DBQuery/query = dbcon_old.NewQuery("SELECT * FROM whitelist WHERE ckey = '[C.ckey]'/* AND race = '[species]'*/")
+	var/DBQuery/query = dbcon_old.NewQuery("SELECT * FROM whitelist WHERE ckey = '[C.ckey]'/* AND race = '[species]' OR  race = 'ALL'")
 	if(!query.Execute())
 		world.log << dbcon_old.ErrorMsg()
 		return 0
