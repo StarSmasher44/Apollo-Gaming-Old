@@ -609,10 +609,11 @@
 
 /mob/Stat()
 	..()
-	. = (is_client_active(10 MINUTES))
+	. = (is_client_active(2 MINUTES))
 	if(!.)
 		return
 
+	CHECK_TICK
 	if(statpanel("Status"))
 		if(ticker && ticker.current_state != GAME_STATE_PREGAME)
 			stat("Station Time", stationtime2text())

@@ -393,7 +393,7 @@
 // These two procs determine tiles that should be shielded given the field range. They are quite CPU intensive and may trigger BYOND infinite loop checks, therefore they are set
 // as background procs to prevent locking up the server. They are only called when the field is generated, or when hull mode is toggled on/off.
 /obj/machinery/power/shield_generator/proc/fieldtype_square()
-	set background = 1
+	set background = BACKGROUND_ENABLED
 	var/list/out = list()
 	var/list/base_turfs = get_base_turfs()
 
@@ -418,7 +418,7 @@
 
 
 /obj/machinery/power/shield_generator/proc/fieldtype_hull()
-	set background = 1
+	set background = BACKGROUND_ENABLED
 	. = list()
 	var/list/base_turfs = get_base_turfs()
 

@@ -44,7 +44,7 @@ var/datum/evacuation_controller/evacuation_controller
 
 /datum/evacuation_controller/proc/set_up()
 	set waitfor=0
-	set background=1
+	set background=BACKGROUND_ENABLED
 	return
 
 /datum/evacuation_controller/proc/get_cooldown_message()

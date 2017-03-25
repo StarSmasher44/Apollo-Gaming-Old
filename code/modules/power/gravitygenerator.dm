@@ -90,7 +90,7 @@
 
 
 /obj/machinery/computer/gravity_control_computer/Topic(href, href_list)
-	set background = 1
+	set background = BACKGROUND_ENABLED
 	..()
 
 	if ( (get_dist(src, usr) > 1 ))

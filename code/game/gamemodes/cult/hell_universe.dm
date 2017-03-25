@@ -24,7 +24,7 @@ In short:
 
 // Apply changes when entering state
 /datum/universal_state/hell/OnEnter()
-	set background = 1
+	set background = BACKGROUND_ENABLED
 
 	//Separated into separate procs for profiling
 	MiscSet()

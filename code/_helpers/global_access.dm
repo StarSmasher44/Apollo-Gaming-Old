@@ -409,8 +409,8 @@
 			return global.data_core;
 		if("dbcon")
 			return global.dbcon;
-		if("dbcon_old")
-			return global.dbcon_old;
+		if("dbcon")
+			return global.dbcon;
 		if("dead_mob_list_")
 			return global.dead_mob_list_;
 		if("death_event")
@@ -1864,8 +1864,6 @@
 			global.data_core=newval;
 		if("dbcon")
 			global.dbcon=newval;
-		if("dbcon_old")
-			global.dbcon_old=newval;
 		if("dead_mob_list_")
 			global.dead_mob_list_=newval;
 		if("death_event")
@@ -3114,7 +3112,6 @@
 	"damage_icon_parts",
 	"data_core",
 	"dbcon",
-	"dbcon_old",
 	"dead_mob_list_",
 	"death_event",
 	"deathsquad",

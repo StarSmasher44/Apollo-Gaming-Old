@@ -195,7 +195,7 @@
 		set_density(0)
 
 /obj/effect/plant/proc/calc_dir()
-	set background = 1
+	set background = BACKGROUND_ENABLED
 	var/turf/T = get_turf(src)
 	if(!istype(T)) return
 

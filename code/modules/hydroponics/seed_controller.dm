@@ -134,7 +134,7 @@ var/global/datum/controller/plants/plant_controller // Set in New().
 /datum/controller/plants/proc/process()
 	processing = 1
 	spawn(0)
-		set background = 1
+		set background = BACKGROUND_ENABLED
 		var/processed = 0
 		while(1)
 			if(!processing)

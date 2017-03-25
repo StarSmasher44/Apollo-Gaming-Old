@@ -95,7 +95,7 @@ Class Procs:
 	//Outputs: None.
 
 	#ifndef ZASDBG
-	set background = 1
+	set background = BACKGROUND_ENABLED
 	#endif
 
 	admin_notice("<span class='danger'>Processing Geometry...</span>", R_DEBUG)
@@ -107,8 +107,9 @@ Class Procs:
 
 	for(var/turf/simulated/S in world)
 		simulated_turf_count++
+		if(!(simulated_turf_count % 50000))
+			sleep(world.tick_lag)
 		S.update_air_properties()
-		CHECK_TICK2(90)
 
 	admin_notice({"<span class='danger'>Geometry initialized in [round(0.1*(world.timeofday-start_time),0.1)] seconds.</span>
 <span class='info'>
@@ -130,7 +131,7 @@ Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_coun
 	//Outputs: None.
 
 	#ifndef ZASDBG
-	set background = 1
+	set background = BACKGROUND_ENABLED
 	#endif
 
 	while(1)

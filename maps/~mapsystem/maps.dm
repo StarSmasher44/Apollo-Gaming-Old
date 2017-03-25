@@ -114,15 +114,16 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 // Used to apply various post-compile procedural effects to the map.
 /datum/map/proc/refresh_mining_turfs()
 
-	set background = 1
 	set waitfor = 0
 
 	for(var/thing in mining_walls)
 		var/turf/simulated/mineral/M = thing
 		M.update_icon()
+		CHECK_TICK2(90)
 	for(var/thing in mining_floors)
 		var/turf/simulated/floor/asteroid/M = thing
 		M.updateMineralOverlays()
+		CHECK_TICK2(90)
 
 /datum/map/proc/get_network_access(var/network)
 	return 0

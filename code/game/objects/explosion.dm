@@ -83,6 +83,7 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 					if(AM && AM.simulated)	AM.ex_act(dist)
 
 				T.ex_act(dist)
+				CHECK_TICK2(85)
 
 		var/took = (world.timeofday-start)/10
 		//You need to press the DebugGame verb to see these now....they were getting annoying and we've collected a fair bit of data. Just -test- changes  to explosion code using this please so we can compare
@@ -97,4 +98,4 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 proc/secondaryexplosion(turf/epicenter, range)
 	for(var/turf/tile in trange(range, epicenter))
 		tile.ex_act(2)
-		CHECK_TICK2(85)
+//		CHECK_TICK2(85)

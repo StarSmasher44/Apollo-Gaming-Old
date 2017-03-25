@@ -87,9 +87,6 @@ area/space/atmosalert()
 /area/space/readyalert()
 	return
 
-/area/space/partyalert()
-	return
-
 //////////////////////
 //AREAS USED BY CODE//
 //////////////////////
@@ -231,7 +228,7 @@ area/space/atmosalert()
 			sound_to(M, mysound)
 
 /area/beach/proc/process()
-	set background = 1
+	set background = BACKGROUND_ENABLED
 
 	var/sound/S = null
 	var/sound_delay = 0
