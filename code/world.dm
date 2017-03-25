@@ -72,7 +72,7 @@
 	turf = /turf/space
 	area = /area/space
 	view = "15x15"
-	cache_lifespan = 0	//stops player uploaded stuff from being kept in the rsc past the current session
+	cache_lifespan = 3	//stops player uploaded stuff from being kept in the rsc past the current session &L: Lets try this.
 	icon_size = WORLD_ICON_SIZE
 
 
@@ -101,8 +101,6 @@
 		var/runtime_log = file("data/logs/runtime/[date_string]_[time2text(world.timeofday, "hh:mm")]_[game_id].log")
 		runtime_log << "Game [game_id] starting up at [time2text(world.timeofday, "hh:mm.ss")]"
 		log = runtime_log
-
-	sleep(50) // Sleep so the game doesn't take forever to reconnect..
 
 	callHook("startup")
 	//Emergency Fix
@@ -665,6 +663,7 @@ proc/establish_db_connection()
 		return 1
 
 
+/*
 /hook/startup/proc/connectOldDB()
 	if(!setup_old_database_connection())
 		world.log << "Your server failed to establish a connection with the SQL database."
@@ -678,8 +677,8 @@ proc/setup_old_database_connection()
 	if(failed_old_db_connections > FAILED_DB_CONNECTION_CUTOFF)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to conenct anymore.
 		return 0
 
-	if(!dbcon_old)
-		dbcon_old = new()
+	if(!dbcon)
+		dbcon = new()
 
 	var/user = sqllogin
 	var/pass = sqlpass
@@ -687,8 +686,8 @@ proc/setup_old_database_connection()
 	var/address = sqladdress
 	var/port = sqlport
 
-	dbcon_old.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
-	. = dbcon_old.IsConnected()
+	dbcon.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
+	. = dbcon.IsConnected()
 	if ( . )
 		failed_old_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
 	else
@@ -702,9 +701,9 @@ proc/establish_old_db_connection()
 	if(failed_old_db_connections > FAILED_DB_CONNECTION_CUTOFF)
 		return 0
 
-	if(!dbcon_old || !dbcon_old.IsConnected())
+	if(!dbcon || !dbcon.IsConnected())
 		return setup_old_database_connection()
 	else
 		return 1
-
+*/
 #undef FAILED_DB_CONNECTION_CUTOFF

@@ -41,14 +41,14 @@
 			prisonwarp += loc
 			delete_me = 1
 			return
-		if("tdome1")
+/*		if("tdome1")
 			tdome1 += loc
 		if("tdome2")
 			tdome2 += loc
 		if("tdomeadmin")
 			tdomeadmin += loc
 		if("tdomeobserve")
-			tdomeobserve += loc
+			tdomeobserve += loc*/
 		if("prisonsecuritywarp")
 			prisonsecuritywarp += loc
 			delete_me = 1

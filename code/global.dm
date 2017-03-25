@@ -60,10 +60,10 @@ var/list/latejoin_cyborg  = list()
 
 var/list/prisonwarp         = list() // Prisoners go to these
 var/list/xeno_spawn         = list() // Aliens spawn at at these.
-var/list/tdome1             = list()
-var/list/tdome2             = list()
-var/list/tdomeobserve       = list()
-var/list/tdomeadmin         = list()
+var/list/tdome1             = null
+var/list/tdome2             = null
+var/list/tdomeobserve       = null
+var/list/tdomeadmin         = null
 var/list/prisonsecuritywarp = list() // Prison security goes to these.
 var/list/prisonwarped       = list() // List of players already warped.
 var/list/ninjastart         = list()
@@ -128,8 +128,7 @@ var/custom_event_msg = null
 
 // Database connections. A connection is established on world creation.
 // Ideally, the connection dies when the server restarts (After feedback logging.).
-var/DBConnection/dbcon     = new() // Feedback    database (New database)
-var/DBConnection/dbcon_old = new() // /tg/station database (Old database) -- see the files in the SQL folder for information on what goes where.
+var/DBConnection/dbcon = new() // /tg/station database (Old database) -- see the files in the SQL folder for information on what goes where.
 
 // Reference list for disposal sort junctions. Filled up by sorting junction's New()
 /var/list/tagger_locations = list()

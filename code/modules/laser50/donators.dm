@@ -3,10 +3,10 @@ var/list/donators = list()
 /client
 	var/donator = 0 // Is donator is not donator?
 
-/proc/load_donators_sql()
-	var/DBQuery/query = dbcon_old.NewQuery("SELECT * FROM whitelist WHERE donator = 1")
+/hook/startup/proc/load_donators_sql()
+	var/DBQuery/query = dbcon.NewQuery("SELECT ckey FROM whitelist WHERE donator = 1")
 	if(!query.Execute())
-		world.log << dbcon_old.ErrorMsg()
+		world.log << dbcon.ErrorMsg()
 		return 0
 	else
 		while(query.NextRow())
@@ -14,12 +14,15 @@ var/list/donators = list()
 			donators.Add(row["ckey"])
 	return 1
 
-/proc/is_donator(mob/M)
-	if(!donators)
+/proc/is_donator(client/C)
+	if(!donators || !C)
 		return 0
-	if(check_rights(R_MOD, 0, M))
+//	if(check_rights(R_MOD, 0, M))
+//		return 1
+	if(C.ckey in donators)
+		C.donator = 1 // Is a donator yes
 		return 1
-	return ("[M.ckey]" in donators)
+//	return ("[M.ckey]" in donators)
 
 /client/verb/CheckDonator()
 	set name = "Check Donator"
@@ -39,10 +42,9 @@ var/list/donators = list()
 	if(!msg)
 		return
 
-	if(!donator)
-		if(!check_rights(R_ADMIN|R_MOD))
-			usr << "Only donators and staff can use this command."
-			return
+	if(!donator || !check_rights(R_ADMIN|R_MOD))
+		usr << "Only donators and staff can use this command."
+		return
 
 	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
 

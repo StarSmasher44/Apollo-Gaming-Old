@@ -37,24 +37,26 @@ var/list/whitelist = list()
 		alien_whitelist = splittext(text, "\n")
 		return 1
 
-/proc/check_species_whitelist(client/C, var/species = "")
-	if(!C || !species)
+/proc/check_species_whitelist(client/C, var/species)
+	if(!C || !species || !istype(species,/datum/species))
 		return 0
+	var/datum/species/S = species
 	if(!config.usealienwhitelist)
 		return 1
-	if(check_rights(R_ADMIN))
+	if(check_rights(R_ADMIN, 0))
 		return 1
-	if(species == "human")
+	if(!(S.spawn_flags & (SPECIES_IS_WHITELISTED|SPECIES_IS_RESTRICTED)))
 		return 1
-	var/DBQuery/query = dbcon_old.NewQuery("SELECT * FROM whitelist WHERE ckey = '[C.ckey]'/* AND race = '[species]' OR  race = 'ALL'")
+
+	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM whitelist WHERE ckey = '[C.ckey]' AND race = '[S.name]' OR  race = 'ALL'")
 	if(!query.Execute())
-		world.log << dbcon_old.ErrorMsg()
+		world.log << dbcon.ErrorMsg()
 		return 0
 	else
 		while(query.NextRow())
 			var/list/row = query.GetRowData()
-			if(row["ckey"] == C.ckey && findtext(row["race"], species))
-				alien_whitelist.Add("[C.ckey] - [species]")
+			if(row["ckey"] == C.ckey && findtext(row["race"], S.name))
+				alien_whitelist.Add("[C.ckey] - [S.name]")
 				return 1
 			else
 				return 0
@@ -74,9 +76,9 @@ var/list/whitelist = list()
 //	return 1
 /*
 /proc/load_alienwhitelistSQL()
-	var/DBQuery/query = dbcon_old.NewQuery("SELECT * FROM whitelist")
+	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM whitelist")
 	if(!query.Execute())
-		world.log << dbcon_old.ErrorMsg()
+		world.log << dbcon.ErrorMsg()
 		return 0
 	else
 //		var/list/A
@@ -95,9 +97,9 @@ var/list/whitelist = list()
 	return 1
 */
 /proc/load_alienwhitelistSQL()
-	var/DBQuery/query = dbcon_old.NewQuery("SELECT * FROM whitelist")
+	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM whitelist")
 	if(!query.Execute())
-		world.log << dbcon_old.ErrorMsg()
+		world.log << dbcon.ErrorMsg()
 		return 0
 	else
 		while(query.NextRow())
@@ -110,9 +112,9 @@ var/list/whitelist = list()
 	return 1
 
 /proc/load_jobwhitelistSQL()
-	var/DBQuery/query = dbcon_old.NewQuery("SELECT * FROM whitelist WHERE jobwhitelist = 1")
+	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM whitelist WHERE jobwhitelist = 1")
 	if(!query.Execute())
-		world.log << dbcon_old.ErrorMsg()
+		world.log << dbcon.ErrorMsg()
 		return 0
 	else
 		while(query.NextRow())
