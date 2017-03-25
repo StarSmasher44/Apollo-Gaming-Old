@@ -4,8 +4,8 @@
 	icon_state = "server"
 	var/datum/research/files
 	var/health = 100
-	var/list/id_with_upload = list()	//List of R&D consoles with upload to server access.
-	var/list/id_with_download = list()	//List of R&D consoles with download from server access.
+	var/list/id_with_upload = null	//List of R&D consoles with upload to server access.
+	var/list/id_with_download = null	//List of R&D consoles with download from server access.
 	var/id_with_upload_string = ""		//String versions for easy editing in map editor.
 	var/id_with_download_string = ""
 	var/server_id = 0
@@ -16,6 +16,8 @@
 
 /obj/machinery/r_n_d/server/New()
 	..()
+	id_with_upload = list()
+	id_with_download = list()
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/rdserver(src)
 	component_parts += new /obj/item/weapon/stock_parts/scanning_module(src)

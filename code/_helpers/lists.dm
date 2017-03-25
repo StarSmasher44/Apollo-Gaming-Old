@@ -360,7 +360,7 @@ proc/listclearnulls(list/list)
 				r += bit
 
 	return r
-
+/*
 // Returns the key based on the index
 /proc/get_key_by_index(var/list/L, var/index)
 	var/i = 1
@@ -368,7 +368,9 @@ proc/listclearnulls(list/list)
 		if(index == i)
 			return key
 		i++
-	return null
+	return null*/
+// Returns the key based on the index
+#define KEYBYINDEX(L, index) (((index <= L:len) && (index > 0)) ? L[index] : null)
 
 // Returns the key based on the index
 /proc/get_key_by_value(var/list/L, var/value)

@@ -6,9 +6,9 @@ var/global/datum/controller/occupations/job_master
 
 /datum/controller/occupations
 		//List of all jobs
-	var/list/occupations = list()
+	var/list/occupations = null
 		//Associative list of all jobs, by type
-	var/list/occupations_by_type
+	var/list/occupations_by_type = null
 		//Players who need jobs
 	var/list/unassigned = list()
 		//Debug info

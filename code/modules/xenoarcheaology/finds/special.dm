@@ -17,13 +17,14 @@
 
 //a talking gas mask!
 /obj/item/clothing/mask/gas/poltergeist
-	var/list/heard_talk = list()
+	var/list/heard_talk = null
 	var/last_twitch = 0
 	var/max_stored_messages = 100
 
 /obj/item/clothing/mask/gas/poltergeist/New()
 	processing_objects.Add(src)
 	listening_objects += src
+	heard_talk = list()
 	..()
 
 /obj/item/clothing/mask/gas/poltergeist/Destroy()

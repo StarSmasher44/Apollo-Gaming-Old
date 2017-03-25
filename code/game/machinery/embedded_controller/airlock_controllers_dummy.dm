@@ -46,7 +46,7 @@
 		appearance = master_controller
 		return master_controller.ui_interact(user, state = remote_state)
 
-/obj/machinery/dummy_airlock_controller/powered(var/chan = -1, var/area/check_area = null)
+/obj/machinery/dummy_airlock_controller/powered(var/chan = -1)
 	if(master_controller)
 		return master_controller.MyArea.powered(chan, master_controller.MyArea)
 	return ..()

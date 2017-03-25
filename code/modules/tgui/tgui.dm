@@ -15,15 +15,7 @@
 	var/window_id // The window_id for browse() and onclose().
 	var/width = 0 // The window width.
 	var/height = 0 // The window height
-	var/window_options = list( // Extra options to winset().
-	  "focus" = FALSE,
-	  "titlebar" = TRUE,
-	  "can_resize" = TRUE,
-	  "can_minimize" = TRUE,
-	  "can_maximize" = FALSE,
-	  "can_close" = TRUE,
-	  "auto_format" = FALSE
-	)
+	var/window_options
 	var/style = "nanotrasen" // The style to be used for this UI.
 	var/interface // The interface (template) to be used for this UI.
 	var/autoupdate = TRUE // Update the UI every MC tick.
@@ -54,6 +46,15 @@
   * return datum/tgui The requested UI.
  **/
 /datum/tgui/New(mob/user, datum/src_object, ui_key, interface, title, width = 0, height = 0, datum/tgui/master_ui = null, datum/ui_state/state = tg_default_state, browser_id = null)
+	window_options = list( // Extra options to winset().
+	  "focus" = FALSE,
+	  "titlebar" = TRUE,
+	  "can_resize" = TRUE,
+	  "can_minimize" = TRUE,
+	  "can_maximize" = FALSE,
+	  "can_close" = TRUE,
+	  "auto_format" = FALSE
+	)
 	src.user = user
 	src.src_object = src_object
 	src.ui_key = ui_key

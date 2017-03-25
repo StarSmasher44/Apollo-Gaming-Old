@@ -24,9 +24,10 @@
 	// Convert if/when you can easily get stacks of these.
 	var/carpeted = 0
 
-	var/list/connections = list("nw0", "ne0", "sw0", "se0")
+	var/list/connections = null
 
 /obj/structure/table/New()
+	connections = list("nw0", "ne0", "sw0", "se0")
 	if(istext(material))
 		material = get_material_by_name(material)
 	if(istext(reinforced))

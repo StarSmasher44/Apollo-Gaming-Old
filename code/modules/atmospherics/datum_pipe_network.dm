@@ -1,11 +1,11 @@
 var/global/list/datum/pipe_network/pipe_networks = list()
 
 datum/pipe_network
-	var/list/datum/gas_mixture/gases = list() //All of the gas_mixtures continuously connected in this network
+	var/list/datum/gas_mixture/gases //All of the gas_mixtures continuously connected in this network
 	var/volume = 0	//caches the total volume for atmos machines to use in gas calculations
 
-	var/list/obj/machinery/atmospherics/normal_members = list()
-	var/list/datum/pipeline/line_members = list()
+	var/list/obj/machinery/atmospherics/normal_members
+	var/list/datum/pipeline/line_members
 		//membership roster to go through for updates and what not
 
 	var/update = 1
@@ -14,6 +14,9 @@ datum/pipe_network
 	New()
 		//air_transient = new()
 
+		gases = list()
+		normal_members = list()
+		line_members = list()
 		..()
 
 	proc/process()

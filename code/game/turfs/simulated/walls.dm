@@ -19,7 +19,7 @@
 	var/last_state
 	var/construction_stage
 	var/hitsound = 'sound/weapons/Genhit.ogg'
-	var/list/wall_connections = list("0", "0", "0", "0")
+	var/wall_connections = null
 
 // Walls always hide the stuff below them.
 /turf/simulated/wall/levelupdate()
@@ -28,6 +28,8 @@
 
 /turf/simulated/wall/New(var/newloc, var/materialtype, var/rmaterialtype)
 	..(newloc)
+	if(!wall_connections)
+		wall_connections = list("0", "0", "0", "0")
 	icon_state = "blank"
 	if(!materialtype)
 		materialtype = DEFAULT_WALL_MATERIAL

@@ -45,11 +45,14 @@ research holder datum.
 ***************************************************************/
 
 /datum/research								//Holder for all the existing, archived, and known tech. Individual to console.
-	var/list/known_tech = list()			//List of locally known tech. Datum/tech go here.
-	var/list/possible_designs = list()		//List of all designs.
-	var/list/known_designs = list()			//List of available designs.
+	var/list/known_tech = null			//List of locally known tech. Datum/tech go here.
+	var/list/possible_designs = null		//List of all designs.
+	var/list/known_designs = null			//List of available designs.
 
 /datum/research/New()		//Insert techs into possible_tech here. Known_tech automatically updated.
+	known_tech = list()
+	possible_designs = list()
+	known_designs = list()
 	for(var/T in typesof(/datum/tech) - /datum/tech)
 		known_tech += new T(src)
 	for(var/D in typesof(/datum/design) - /datum/design)
