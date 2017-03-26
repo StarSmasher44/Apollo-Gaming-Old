@@ -1,12 +1,7 @@
 #define TICK_LIMIT_RUNNING 82
 #define TICK_LIMIT_TO_RUN 78
-#define TICK_LIMIT_MC 74
+#define TICK_LIMIT_MC 70
 #define TICK_LIMIT_MC_INIT 98
-
-//CPU lag shit
-#define calculateticks(x)	x * world.tick_lag // Converts your ticks to proper tenths.
-#define tcheck(CPU,TOSLEEP)	if(world.cpu > CPU) sleep(calculateticks(TOSLEEP)) //Shorthand of checking and then sleeping a process based on world CPU
-
 
 #define TICK_CHECK ( world.tick_usage > TICK_LIMIT_RUNNING ? stoplag() : 0 )
 #define CHECK_TICK if (world.tick_usage > TICK_LIMIT_RUNNING)  stoplag()
@@ -20,7 +15,7 @@
 
 //Increases delay as the server gets more overloaded,
 //as sleeps aren't cheap and sleeping only to wake up and sleep again is wasteful
-#define DELTA_CALC max(((max(world.tick_usage, world.cpu) / 100) * max(Master.sleep_delta,1)), 1)
+#define DELTA_CALC max(((max(world.tick_usage, world.cpu) / 100) * max(processScheduler.sleep_delta,1)), 1)
 
 /proc/stoplag()
 	. = 0

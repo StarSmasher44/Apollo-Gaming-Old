@@ -179,8 +179,8 @@ var/global/datum/controller/gameticker/ticker
 	master_controller.process()		//Start master_controller.process()
 	lighting_controller.process()	//Start processing DynamicAreaLighting updates
 	*/
-	#warn Start Process Scheduler here
-//	processScheduler.start()
+
+	processScheduler.start()
 
 	if(config.sql_enabled)
 		statistic_cycle() // Polls population totals regularly and stores them in an SQL DB -- TLE
@@ -547,6 +547,3 @@ var/global/datum/controller/gameticker/ticker
 					to_world("Attempting to spawn [antag.role_text_plural].")
 
 	return 0
-
-/world/proc/has_round_started()
-	return ticker && ticker.current_state >= GAME_STATE_PLAYING

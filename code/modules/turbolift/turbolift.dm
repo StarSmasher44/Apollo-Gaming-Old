@@ -111,7 +111,7 @@
 		return // STOP PRESSING THE BUTTON.
 	floor.pending_move(src)
 	queued_floors |= floor
-	SSturbolift.lift_is_moving(src)
+	turbolift_controller.lift_is_moving(src)
 
 // TODO: dummy machine ('lift mechanism') in powered area for functionality/blackout checks.
 /datum/turbolift/proc/is_functional()

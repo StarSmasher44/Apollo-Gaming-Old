@@ -624,24 +624,11 @@
 		if(client.holder)
 			stat("CPU:","[world.cpu]")
 			stat("Instances:","[world.contents.len]")
-		stat(null)
-		if(Master)
-			Master.stat_entry()
-		else
-			stat("Master Controller:", "ERROR")
-		if(Failsafe)
-			Failsafe.stat_entry()
-		else
-			stat("Failsafe Controller:", "ERROR")
-		if(Master)
-			stat(null)
-			for(var/datum/subsystem/SS in Master.subsystems)
-				SS.stat_entry()
 
-//	if(client.holder && statpanel("Processes"))
-//		if(processScheduler)
-//			processScheduler.statProcesses()
-//		sleep(1 SECOND)
+	if(client.holder && statpanel("Processes"))
+		if(processScheduler)
+			processScheduler.statProcesses()
+		sleep(1 SECOND)
 
 	if(listed_turf && client)
 		if(!TurfAdjacent(listed_turf))
