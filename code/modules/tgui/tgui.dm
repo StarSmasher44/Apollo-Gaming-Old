@@ -102,7 +102,7 @@
 	user << browse(get_html(debugable), "window=[window_id];[window_size][list2params(window_options)]") // Open the window.
 	if (!custom_browser_id)
 		winset(user, window_id, "on-close=\"uiclose \ref[src]\"") // Instruct the client to signal UI when the window is closed.
-	tgui_process.on_open(src)
+	SShtml_ui.on_open(src)
 
  /**
   * public
@@ -127,7 +127,7 @@
  **/
 /datum/tgui/proc/close()
 	user << browse(null, "window=[window_id]") // Close the window.
-	tgui_process.on_close(src)
+	SShtml_ui.on_close(src)
 	for(var/datum/tgui/child in children) // Loop through and close all children.
 		child.close()
 	children.Cut()
@@ -199,9 +199,9 @@
 	var/html
 	// Poplate HTML with JSON if we're supposed to inline.
 	if(inline)
-		html = replacetextEx(tgui_process.basehtml, "{}", get_json(initial_data))
+		html = replacetextEx(SShtml_ui.basehtml, "{}", get_json(initial_data))
 	else
-		html = tgui_process.basehtml
+		html = SShtml_ui.basehtml
 	html = replacetextEx(html, "\[ref]", "\ref[src]")
 	html = replacetextEx(html, "\[style]", style)
 	return html
@@ -280,7 +280,7 @@
 		if("tgui:view")
 			if(params["screen"])
 				src_object.ui_screen = params["screen"]
-			tgui_process.update_uis(src_object)
+			SShtml_ui.update_uis(src_object)
 		if("tgui:link")
 			user << link(params["url"])
 		if("tgui:fancy")
@@ -290,7 +290,7 @@
 		else
 			update_status(push = 0) // Update the window state.
 			if(src_object.ui_act(action, params, src, state)) // Call ui_act() on the src_object.
-				tgui_process.update_uis(src_object) // Update if the object requested it.
+				SShtml_ui.update_uis(src_object) // Update if the object requested it.
 
  /**
   * private
