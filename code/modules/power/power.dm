@@ -72,7 +72,7 @@
 
 // returns true if the area has power on given channel (or doesn't require power), defaults to power_channel.
 // May also optionally specify an area, otherwise defaults to src.loc.loc
-/obj/machinery/proc/powered(var/chan = -1, var/area/check_area = null)
+/obj/machinery/proc/powered(var/chan = -1)
 
 	if(!src.loc)
 		return 0
@@ -82,13 +82,13 @@
 	//if(!use_power)
 	//	return 1
 
-	if(!check_area)
-		check_area = src.loc.loc		// make sure it's in an area
-	if(!check_area || !isarea(check_area))
-		return 0					// if not, then not powered
+	if(!MyArea)
+		MyArea = get_area(src)		// make sure it's in an area
+//	if(!check_area || !isarea(check_area))
+//		return 0					// if not, then not powered
 	if(chan == -1)
 		chan = power_channel
-	return check_area.powered(chan)			// return power status of the area
+	return MyArea.powered(chan)			// return power status of the area
 
 // increment the power usage stats for an area
 /obj/machinery/proc/use_power(var/amount, var/chan = -1) // defaults to power_channel

@@ -14,18 +14,12 @@ var/list/announcemessages = list(
 	)
 
 /world/proc/Announce()
-	var/canannounce = 1
-
 	while(1)
-		if(canannounce)
-			var/message = pick(announcemessages)
-			if(!message)
-				continue //The empty messages are there to keep time time inbetween.
-			world << "<font size='2'><b>Auto-Announcer: </h3></font><i><font color='green'>[message]</font></i></b>"
-			for(var/client/C in clients)
-				C << "<font color='green'><font size='2'><b>" + create_text_tag("news", "NEWS:", C) + " Auto-Announcer: </b><span class='message'>[message]</span></font>"
+		var/message = pick(announcemessages)
+		if(!message)
+			continue //The empty messages are there to keep time time inbetween.
+//		world << "<font size='2'><b>Auto-Announcer: </h3></font><i><font color='green'>[message]</font></i></b>"
+		for(var/client/C in clients)
+			C << "<font color='green'><font size='2'><b>" + create_text_tag("news", "NEWS:", C) + " Auto-Announcer: </b><span class='message'>[message]</span></font>"
 
-			canannounce = 0
-			spawn(600+rand(0, 1200))
-				canannounce = 1
-		sleep(100) // Around 10 second delay per check.
+		sleep(1200+rand(400, 1800))
