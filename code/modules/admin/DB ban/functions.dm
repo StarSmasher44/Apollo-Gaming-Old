@@ -36,9 +36,11 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 
 	if(ismob(banned_mob))
 		ckey = banned_mob.ckey
-		if(banned_mob.client)
-			computerid = banned_mob.client.computer_id
-			ip = banned_mob.client.address
+		ip = banned_mob.lastKnownIP
+		computerid = banned_mob.computer_id
+//		if(banned_mob.client)
+//			computerid = banned_mob.client.computer_id
+//			ip = banned_mob.client.address
 	else if(banckey)
 		ckey = ckey(banckey)
 		computerid = bancid
@@ -250,6 +252,7 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 
 	var/DBQuery/query_update = dbcon.NewQuery(sql_update)
 	query_update.Execute()
+	world.SetConfig("ban",unban_ckey, null)
 
 
 /client/proc/DB_ban_panel()

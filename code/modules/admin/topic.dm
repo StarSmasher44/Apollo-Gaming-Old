@@ -773,7 +773,8 @@
 				var/reason = sanitize(input(usr,"Reason?","reason","Griefer") as text|null)
 				if(!reason)
 					return
-				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 1, mins)
+				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 1, mins, M.lastKnownIP)
+				world.SetConfig("SYSTEM/ban",M.ckey,"type=sticky&reason=[reason]&message=[reason]&admin=[ckey(usr.key)]&time=[mins]")
 				ban_unban_log_save("[usr.client.ckey] has banned [M.ckey]. - Reason: [reason] - This will be removed in [mins] minutes.")
 				notes_add(M.ckey,"[usr.client.ckey] has banned [M.ckey]. - Reason: [reason] - This will be removed in [mins] minutes.",usr)
 				to_chat(M, "<span class='danger'>You have been banned by [usr.client.ckey].\nReason: [reason].</span>")
@@ -794,12 +795,10 @@
 				var/reason = sanitize(input(usr,"Reason?","reason","Griefer") as text|null)
 				if(!reason)
 					return
-				switch(alert(usr,"IP ban?",,"Yes","No","Cancel"))
-					if("Cancel")	return
-					if("Yes")
-						AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
-					if("No")
-						AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0)
+				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
+				world.SetConfig("SYSTEM/ban",M.ckey,"type=sticky&reason=[reason]&message=[reason]&admin=[ckey(usr.key)]")
+				message_admins("[key_name_admin(usr)] has sticky banned [key_name(M)].")
+				log_admin("[key_name(usr)] has sticky banned [key_name(M)].")
 				to_chat(M, "<span class='danger'>You have been banned by [usr.client.ckey].\nReason: [reason].</span>")
 				to_chat(M, "<span class='warning'>This is a permanent ban.</span>")
 				if(config.banappeals)
