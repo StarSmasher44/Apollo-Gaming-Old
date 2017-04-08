@@ -48,7 +48,7 @@
 	lum_g += delta_g
 	lum_b += delta_b
 
-	if(!needs_update && should_update)
+	if(should_update)
 		needs_update = 1
 		lighting_update_overlays += src
 
@@ -83,7 +83,7 @@
 		qdel(src)
 
 /atom/movable/lighting_overlay/Destroy()
-	lighting_update_overlays -= src
+	global.lighting_update_overlays     -= src
 
 	var/turf/T = loc
 	if(istype(T))

@@ -51,6 +51,20 @@
 
 	return ..()
 
+/datum/light_source/proc/AddToList()
+	set waitfor = 0
+	if(!needs_update)
+		lighting_update_lights += src
+		needs_update = 1
+
+
+#define effect_update(BYOND)            \
+	if (!needs_update)                  \
+	{                                   \
+		needs_update            = 1;    \
+		lighting_update_lights += src;  \
+	}
+
 /datum/light_source/proc/destroy()
 	destroyed = 1
 	force_update()
@@ -65,22 +79,18 @@
 			if(!top_atom.light_sources) top_atom.light_sources = list()
 			top_atom.light_sources += src
 
-	if(!needs_update) //Incase we're already updating either way.
-		lighting_update_lights += src
-		needs_update = 1
+//	AddToList()
+	effect_update(null)
 
 /datum/light_source/proc/force_update()
 	force_update = 1
-	if(!needs_update) //Incase we're already updating either way.
-		needs_update = 1
-		lighting_update_lights += src
+//	AddToList()
+	effect_update(null)
 
 /datum/light_source/proc/vis_update()
-	if(!needs_update)
-		needs_update = 1
-		lighting_update_lights += src
-
 	vis_update = 1
+//	AddToList()
+	effect_update(null)
 
 /datum/light_source/proc/check()
 	if(!source_atom || !light_range || !light_power)
@@ -195,8 +205,8 @@
 		if(T.lighting_overlay)
 			var/str = effect_str[i]
 			T.lighting_overlay.update_lumcount(
-				-str * applied_lum_r, 
-				-str * applied_lum_g, 
+				-str * applied_lum_r,
+				-str * applied_lum_g,
 				-str * applied_lum_b
 			)
 
@@ -258,7 +268,7 @@
 		effect_str.Cut(idx, idx + 1)
 
 //Whoop yet not another copy pasta because speed ~~~~BYOND.
-//Calculates and applies lighting for a single turf. This is intended for when a turf switches to 
+//Calculates and applies lighting for a single turf. This is intended for when a turf switches to
 //using dynamic lighting when it was not doing so previously (when constructing a floor on space, for example).
 //Assumes the turf is visible and such.
 //For the love of god don't call this proc when it's not needed! Lighting artifacts WILL happen!
